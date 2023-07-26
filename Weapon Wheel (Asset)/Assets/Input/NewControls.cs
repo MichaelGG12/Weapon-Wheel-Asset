@@ -44,6 +44,15 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""39f820f5-4ba3-43fe-9d9a-f380d425c86a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d17e4c6-bd71-4fb7-a63d-8cf503b37758"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         m_WeaponWheelMap = asset.FindActionMap("WeaponWheelMap", throwIfNotFound: true);
         m_WeaponWheelMap_OpenWeaponWheel = m_WeaponWheelMap.FindAction("OpenWeaponWheel", throwIfNotFound: true);
         m_WeaponWheelMap_Shoot = m_WeaponWheelMap.FindAction("Shoot", throwIfNotFound: true);
+        m_WeaponWheelMap_Reload = m_WeaponWheelMap.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +162,14 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
     private List<IWeaponWheelMapActions> m_WeaponWheelMapActionsCallbackInterfaces = new List<IWeaponWheelMapActions>();
     private readonly InputAction m_WeaponWheelMap_OpenWeaponWheel;
     private readonly InputAction m_WeaponWheelMap_Shoot;
+    private readonly InputAction m_WeaponWheelMap_Reload;
     public struct WeaponWheelMapActions
     {
         private @NewControls m_Wrapper;
         public WeaponWheelMapActions(@NewControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @OpenWeaponWheel => m_Wrapper.m_WeaponWheelMap_OpenWeaponWheel;
         public InputAction @Shoot => m_Wrapper.m_WeaponWheelMap_Shoot;
+        public InputAction @Reload => m_Wrapper.m_WeaponWheelMap_Reload;
         public InputActionMap Get() { return m_Wrapper.m_WeaponWheelMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +185,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
         }
 
         private void UnregisterCallbacks(IWeaponWheelMapActions instance)
@@ -172,6 +198,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
         }
 
         public void RemoveCallbacks(IWeaponWheelMapActions instance)
@@ -193,5 +222,6 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
     {
         void OnOpenWeaponWheel(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

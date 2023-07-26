@@ -72,7 +72,7 @@ public class Weapons : MonoBehaviour
         if (SMG.name == weaponName) SMG.gameObject.SetActive(true); else SMG.gameObject.SetActive(false);
     }
 
-    public void OnOpenWeaponWheel(InputAction.CallbackContext context)
+    private void OnOpenWeaponWheel(InputAction.CallbackContext context)
     {
         if (_weaponWheelInputValue == 0) // Pressed.
         {

@@ -3,10 +3,9 @@ using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour
 {
-    public Weapons _weapons;
-
+    private Weapons _weapons;
     public WeaponScriptableObject WeaponSettings;
-    public int CurrentBulletCount;
+    [HideInInspector] public int CurrentBulletCount;
 
     private SpriteRenderer SpriteRenderer;
 
@@ -21,10 +20,11 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         _weapons = GetComponentInParent<Weapons>();
-        GameManager.NewControls.WeaponWheelMap.Shoot.performed += OnShootPressed;
+        GameManager.NewControls.WeaponWheelMap.Shoot.performed += OnShoot;
+        GameManager.NewControls.WeaponWheelMap.Reload.performed += OnReload;
     }
 
-    private void OnShootPressed(InputAction.CallbackContext context)
+    private void OnShoot(InputAction.CallbackContext context)
     {
         if (gameObject.activeInHierarchy)
         {
@@ -35,5 +35,11 @@ public class Weapon : MonoBehaviour
             }
             else Debug.Log("No ammo");
         }
+    }
+
+    private void OnReload(InputAction.CallbackContext context)
+    {
+        CurrentBulletCount = WeaponSettings.MaxAmmo;
+        _weapons.HUD.SetWeaponData(this);
     }
 }
