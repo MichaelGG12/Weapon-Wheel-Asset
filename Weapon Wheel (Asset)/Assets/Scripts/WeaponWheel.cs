@@ -10,21 +10,21 @@ public class WeaponWheel : MonoBehaviour
 
     public Weapons Weapons;
 
-    [Header("First weapon")]
-    [SerializeField] private Button _firstWeaponBtn;
-    [SerializeField] private Image _firstWeaponGfx;
+    [Header("Pistol")]
+    [SerializeField] private Button _pistolBtn;
+    [SerializeField] private Image _pistolGfx;
 
-    [Header("Second weapon")]
-    [SerializeField] private Button _secondWeaponBtn;
-    [SerializeField] private Image _secondWeaponGfx;
+    [Header("Magnum")]
+    [SerializeField] private Button _magnumBtn;
+    [SerializeField] private Image _magnumGfx;
 
-    [Header("Thrid weapon")]
-    [SerializeField] private Button _thridWeaponBtn;
-    [SerializeField] private Image _thridWeaponGfx;
+    [Header("Rifle")]
+    [SerializeField] private Button _rifleBtn;
+    [SerializeField] private Image _rifleGfx;
 
-    [Header("Fourth weapon")]
-    [SerializeField] private Button _fourthWeaponBtn;
-    [SerializeField] private Image _fourthWeaponGfx;
+    [Header("SMG")]
+    [SerializeField] private Button _SMGBtn;
+    [SerializeField] private Image _SMGGfx;
 
     private void OnEnable()
     {
@@ -32,17 +32,17 @@ public class WeaponWheel : MonoBehaviour
         {
             switch (Weapons.InitialWeapon)
             {
-                case InitialWeaponEnum.FirstWeapon:
-                    CurrentSelected = _firstWeaponBtn;
+                case InitialWeaponEnum.Pistol:
+                    CurrentSelected = _pistolBtn;
                     break;
-                case InitialWeaponEnum.SecondWeapon:
-                    CurrentSelected = _secondWeaponBtn;
+                case InitialWeaponEnum.Magnum:
+                    CurrentSelected = _magnumBtn;
                     break;
-                case InitialWeaponEnum.ThirdWeapon:
-                    CurrentSelected = _thridWeaponBtn;
+                case InitialWeaponEnum.Rifle:
+                    CurrentSelected = _rifleBtn;
                     break;
-                case InitialWeaponEnum.FourthWeapon:
-                    CurrentSelected = _fourthWeaponBtn;
+                case InitialWeaponEnum.SMG:
+                    CurrentSelected = _SMGBtn;
                     break;
             };
             _initialLoad = false;
@@ -52,25 +52,30 @@ public class WeaponWheel : MonoBehaviour
 
     private void Start()
     {
-        if (!Weapons.UnlockedWeapons["FirstWeapon"])
+        _pistolGfx.sprite = Weapons.Pistol.WeaponSettings.Icon;
+        _magnumGfx.sprite = Weapons.Magnum.WeaponSettings.Icon;
+        _rifleGfx.sprite = Weapons.Rifle.WeaponSettings.Icon;
+        _SMGGfx.sprite = Weapons.SMG.WeaponSettings.Icon;
+
+        if (!Weapons.UnlockedWeapons["Pistol"])
         {
-            _firstWeaponBtn.interactable = false;
-            _firstWeaponGfx.color = new Color(255, 255, 255, 0);
+            _pistolBtn.interactable = false;
+            _pistolGfx.color = new Color(255, 255, 255, 0);
         }
-        if (!Weapons.UnlockedWeapons["SecondWeapon"])
+        if (!Weapons.UnlockedWeapons["Magnum"])
         {
-            _secondWeaponBtn.interactable = false;
-            _secondWeaponGfx.color = new Color(255, 255, 255, 0);
+            _magnumBtn.interactable = false;
+            _magnumGfx.color = new Color(255, 255, 255, 0);
         }
-        if (!Weapons.UnlockedWeapons["ThirdWeapon"])
+        if (!Weapons.UnlockedWeapons["Rifle"])
         {
-            _thridWeaponBtn.interactable = false;
-            _thridWeaponGfx.color = new Color(255, 255, 255, 0);
+            _rifleBtn.interactable = false;
+            _rifleGfx.color = new Color(255, 255, 255, 0);
         }
-        if (!Weapons.UnlockedWeapons["FourthWeapon"])
+        if (!Weapons.UnlockedWeapons["SMG"])
         {
-            _fourthWeaponBtn.interactable = false;
-            _fourthWeaponGfx.color = new Color(255, 255, 255, 0);
+            _SMGBtn.interactable = false;
+            _SMGGfx.color = new Color(255, 255, 255, 0);
         }
     }
 
@@ -83,21 +88,21 @@ public class WeaponWheel : MonoBehaviour
     {
         switch (weaponName)
         {
-            case "FirstWeapon":
-                _firstWeaponBtn.interactable = true;
-                _firstWeaponGfx.color = new Color(255, 255, 255, 255);
+            case "Pistol":
+                _pistolBtn.interactable = true;
+                _pistolGfx.color = new Color(255, 255, 255, 255);
                 break;
-            case "SecondWeapon":
-                _secondWeaponBtn.interactable = true;
-                _secondWeaponGfx.color = new Color(255, 255, 255, 255);
+            case "Magnum":
+                _magnumBtn.interactable = true;
+                _magnumGfx.color = new Color(255, 255, 255, 255);
                 break;
-            case "ThridWeapon":
-                _thridWeaponBtn.interactable = true;
-                _thridWeaponGfx.color = new Color(255, 255, 255, 255);
+            case "Rifle":
+                _rifleBtn.interactable = true;
+                _rifleGfx.color = new Color(255, 255, 255, 255);
                 break;
-            case "FourthWeapon":
-                _fourthWeaponBtn.interactable = true;
-                _fourthWeaponGfx.color = new Color(255, 255, 255, 255);
+            case "SMG":
+                _SMGBtn.interactable = true;
+                _SMGGfx.color = new Color(255, 255, 255, 255);
                 break;
         }
     }

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class WeaponScriptableObject : ScriptableObject
 {
-    [Header("UI Icon")]
+    [Header("Sprite")]
+    public Sprite Sprite;
+
+    [Header("HUD")]
     public Sprite Icon;
 
     [Header("Ammo")]
-    public int MaxBullets;
+    public int MaxAmmo;
 }

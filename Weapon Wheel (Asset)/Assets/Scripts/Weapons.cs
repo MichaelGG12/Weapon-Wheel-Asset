@@ -3,18 +3,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum InitialWeaponEnum { FirstWeapon, SecondWeapon, ThirdWeapon, FourthWeapon }
+public enum InitialWeaponEnum { Pistol, Magnum, Rifle, SMG }
 
 public class Weapons : MonoBehaviour
 {
-    private NewControls _newControls;
-
     [Header("Weapons")]
     public InitialWeaponEnum InitialWeapon;
-    public Weapon FirstWeapon;
-    public Weapon SecondWeapon;
-    public Weapon ThirdWeapon;
-    public Weapon FourthWeapon;
+    public Weapon Pistol;
+    public Weapon Magnum;
+    public Weapon Rifle;
+    public Weapon SMG;
 
     [Header("Other components")]
     public HUD HUD;
@@ -22,63 +20,56 @@ public class Weapons : MonoBehaviour
 
     public Dictionary<string, bool> UnlockedWeapons = new()
         {
-            { "FirstWeapon", true }, { "SecondWeapon", true }, { "ThirdWeapon", true }, { "FourthWeapon", true }
+            { "Pistol", true }, { "Magnum", true }, { "Rifle", true }, { "SMG", true }
         };
 
     private float _weaponWheelInputValue;
 
-    private void Awake()
-    {
-        _newControls = new NewControls();
-        _newControls.WeaponWheelMap.Enable();
-    }
 
     private void Start()
     {
-        _newControls.WeaponWheelMap.OpenWeaponWheel.performed += OnOpenWeaponWheel;
+        GameManager.NewControls.WeaponWheelMap.OpenWeaponWheel.performed += OnOpenWeaponWheel;
 
-        // Check unlocked weapons.
         if (UnlockedWeapons.Any(x => x.Value))
         {
-            // Set initial weapon.
             SelectWeapon(InitialWeapon.ToString());
         }
     }
 
     private void Update()
     {
-        _weaponWheelInputValue = _newControls.WeaponWheelMap.OpenWeaponWheel.ReadValue<float>();
+        _weaponWheelInputValue = GameManager.NewControls.WeaponWheelMap.OpenWeaponWheel.ReadValue<float>();
     }
 
     private void SelectWeapon(string weaponName)
     {
         switch (weaponName)
         {
-            case "FirstWeapon":
-                SetActiveWeaponGameobject("FirstWeapon");
-                HUD.SetWeaponData(FirstWeapon);
+            case "Pistol":
+                SetActiveWeaponGameobject("Pistol");
+                HUD.SetWeaponData(Pistol);
                 break;
-            case "SecondWeapon":
-                SetActiveWeaponGameobject("SecondWeapon");
-                HUD.SetWeaponData(SecondWeapon);
+            case "Magnum":
+                SetActiveWeaponGameobject("Magnum");
+                HUD.SetWeaponData(Magnum);
                 break;
-            case "ThirdWeapon":
-                SetActiveWeaponGameobject("ThirdWeapon");
-                HUD.SetWeaponData(ThirdWeapon);
+            case "Rifle":
+                SetActiveWeaponGameobject("Rifle");
+                HUD.SetWeaponData(Rifle);
                 break;
-            case "FourthWeapon":
-                SetActiveWeaponGameobject("FourthWeapon");
-                HUD.SetWeaponData(FourthWeapon);
+            case "SMG":
+                SetActiveWeaponGameobject("SMG");
+                HUD.SetWeaponData(SMG);
                 break;
         }
     }
 
     private void SetActiveWeaponGameobject(string weaponName)
     {
-        if (FirstWeapon.name == weaponName) FirstWeapon.gameObject.SetActive(true); else FirstWeapon.gameObject.SetActive(false);
-        if (SecondWeapon.name == weaponName) SecondWeapon.gameObject.SetActive(true); else SecondWeapon.gameObject.SetActive(false);
-        if (ThirdWeapon.name == weaponName) ThirdWeapon.gameObject.SetActive(true); else ThirdWeapon.gameObject.SetActive(false);
-        if (FourthWeapon.name == weaponName) FourthWeapon.gameObject.SetActive(true); else FourthWeapon.gameObject.SetActive(false);
+        if (Pistol.name == weaponName) Pistol.gameObject.SetActive(true); else Pistol.gameObject.SetActive(false);
+        if (Magnum.name == weaponName) Magnum.gameObject.SetActive(true); else Magnum.gameObject.SetActive(false);
+        if (Rifle.name == weaponName) Rifle.gameObject.SetActive(true); else Rifle.gameObject.SetActive(false);
+        if (SMG.name == weaponName) SMG.gameObject.SetActive(true); else SMG.gameObject.SetActive(false);
     }
 
     public void OnOpenWeaponWheel(InputAction.CallbackContext context)
@@ -100,17 +91,17 @@ public class Weapons : MonoBehaviour
         {
             switch (WeaponWheel.CurrentSelected.gameObject.name)
             {
-                case "FirstWeapon":
-                    SelectWeapon("FirstWeapon");
+                case "Pistol":
+                    SelectWeapon("Pistol");
                     break;
-                case "SecondWeapon":
-                    SelectWeapon("SecondWeapon");
+                case "Magnum":
+                    SelectWeapon("Magnum");
                     break;
-                case "ThirdWeapon":
-                    SelectWeapon("ThirdWeapon");
+                case "Rifle":
+                    SelectWeapon("Rifle");
                     break;
-                case "FourthWeapon":
-                    SelectWeapon("FourthWeapon");
+                case "SMG":
+                    SelectWeapon("SMG");
                     break;
             }
         }
